@@ -1,28 +1,24 @@
-import axios from "axios";
-
-// Backend API base URL
-const API_URL = "http://localhost:5000/api/auth/";
+import axiosInstance from "./axiosInstance";
 
 export const registerUser = async (userData) => {
-  const response = await axios.post(API_URL + "register", userData);
+  const response = await axiosInstance.post("/auth/register", userData);
   return response.data;
 };
 
 export const loginUser = async (userData) => {
-  const response = await axios.post("http://localhost:5000/api/auth/login", userData);
+  const response = await axiosInstance.post("/auth/login", userData);
 
   if (response.data && response.data.token) {
-    localStorage.setItem("userInfo", JSON.stringify(response.data)); // token is saved
+    localStorage.setItem("userInfo", JSON.stringify(response.data));
   }
 
   return response.data;
 };
 
-
 export const getProfile = async (token) => {
   if (!token) throw new Error("No token provided");
 
-  const response = await axios.get("http://localhost:5000/api/auth/profile", {
+  const response = await axiosInstance.get("/auth/profile", {
     headers: { Authorization: `Bearer ${token}` },
   });
 
@@ -32,11 +28,9 @@ export const getProfile = async (token) => {
 export const updateProfile = async (token, updatedData) => {
   if (!token) throw new Error("No token provided");
 
-  const response = await axios.put("http://localhost:5000/api/auth/profile", updatedData, {
+  const response = await axiosInstance.put("/auth/profile", updatedData, {
     headers: { Authorization: `Bearer ${token}` },
   });
 
   return response.data;
 };
-
-

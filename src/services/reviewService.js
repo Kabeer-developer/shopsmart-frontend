@@ -1,6 +1,4 @@
-import axios from "axios";
-
-const API_BASE = "http://localhost:5000/api/products";
+import axiosInstance from "./axiosInstance";
 
 const getAuthConfig = () => {
   const user = JSON.parse(localStorage.getItem("userInfo"));
@@ -16,12 +14,12 @@ const getAuthConfig = () => {
 // ✅ Add a review
 export const addReview = async (productId, reviewData) => {
   const config = getAuthConfig();
-  const res = await axios.post(`${API_BASE}/${productId}/reviews`, reviewData, config);
+  const res = await axiosInstance.post(`/products/${productId}/reviews`, reviewData, config);
   return res.data;
 };
 
 // ✅ Get all reviews
 export const getReviews = async (productId) => {
-  const res = await axios.get(`${API_BASE}/${productId}/reviews`);
+  const res = await axiosInstance.get(`/products/${productId}/reviews`);
   return res.data;
 };

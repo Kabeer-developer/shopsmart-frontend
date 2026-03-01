@@ -1,20 +1,17 @@
-import axios from "axios";
-
-const BASE_URL = "http://localhost:5000";
-const API_URL = `${BASE_URL}/api/admin`;
+import axiosInstance from "./axiosInstance";
 
 // =======================
 // Users
 // =======================
 export const getAllUsers = async (token) => {
   const config = { headers: { Authorization: `Bearer ${token}` } };
-  const { data } = await axios.get(`${API_URL}/users`, config);
+  const { data } = await axiosInstance.get("/admin/users", config);
   return data;
 };
 
 export const deleteUser = async (id, token) => {
   const config = { headers: { Authorization: `Bearer ${token}` } };
-  const { data } = await axios.delete(`${API_URL}/users/${id}`, config);
+  const { data } = await axiosInstance.delete(`/admin/users/${id}`, config);
   return data;
 };
 
@@ -23,7 +20,7 @@ export const deleteUser = async (id, token) => {
 // =======================
 export const getStats = async (token) => {
   const config = { headers: { Authorization: `Bearer ${token}` } };
-  const { data } = await axios.get(`${API_URL}/stats`, config);
+  const { data } = await axiosInstance.get("/admin/stats", config);
   return data;
 };
 
@@ -32,13 +29,13 @@ export const getStats = async (token) => {
 // =======================
 export const getAllOrders = async (token) => {
   const config = { headers: { Authorization: `Bearer ${token}` } };
-  const { data } = await axios.get(`${API_URL}/orders`, config);
+  const { data } = await axiosInstance.get("/admin/orders", config);
   return data;
 };
 
 export const updateOrderStatus = async (orderId, statusData, token) => {
   const config = { headers: { Authorization: `Bearer ${token}` } };
-  const { data } = await axios.put(`${API_URL}/${orderId}/status`, statusData, config);
+  const { data } = await axiosInstance.put(`/admin/${orderId}/status`, statusData, config);
   return data;
 };
 
